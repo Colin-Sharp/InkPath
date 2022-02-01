@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiSerivce } from '../api.service';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
-import { BaseComponent } from '../base.component';
 import { CountryEnum } from '../enums/country.enum';
 
 @Component({
@@ -11,39 +9,34 @@ import { CountryEnum } from '../enums/country.enum';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage extends BaseComponent implements OnInit {
+export class HomePage {
   public name: FormControl = new FormControl('');
-  public countrys = CountryEnum;
-  public imagename = 'isaac'
-  public listOfPredictions: [] = [];
-  
-  public dummyArry: string[] = ['BB', 'BY', 'BE'];
 
-  // our world population data
+  // our name data var.
   private ourdata$: Observable<any>
 
   constructor(private apiService: ApiSerivce) {
-    super();
+    // Get our data from our api service.
     this.ourdata$ = this.apiService.fetchPredictedNames()
   }
 
-  ngOnInit(): void {}
-
+  // Filter our names in the search bar.
   public filterData(allData) {
     if (this.name.value === '') {
       return allData
     } else {
       return allData.filter(data => {
         return data.name.toLowerCase().indexOf(this.name.value.toLowerCase()) !== -1;
-        // return data.title.toLowerCase().indexOf(this.name.value.toLowerCase()) !== -1;
       })
     }
   }
 
+  // Populate the src in the img tag to display scientist's pitcher.
   public makeImagePath(name: string) {
     return '../../assets/images/' + name +'.jpg'
   }
 
+  // Conver the country code to full name of the Country.
   public getCountry(code) {
     return CountryEnum[code];
   }
