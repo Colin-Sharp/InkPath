@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      InkPath
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ <ion-grid class="ion-text-center">
+   <h2 class="search">Search</h2>
+   <label for="name"> 
+    <input class="search-bar" type="text" id="name" [(ngModel)]="name.value">
+   </label>
+ </ion-grid>
+ <div>
+   <div *ngIf="(ourdata$ | async) as allOurData">
+      <ion-card class="name-item  ion-text-center" *ngFor="let data of filterData(allOurData)">
+      <img class="image" src={{makeImagePath(data.name)}} alt="">
+      <ion-card-title>
+        <h2>{{data.name}}</h2>
+      </ion-card-title>
+      <ion-card-content>
+        <p>most likely: {{getCountry(data.country[0])}}</p>
+        <p>Second: {{getCountry(data.country[1])}}</p>
+        <p>Third: {{getCountry(data.country[2])}}</p>
+      </ion-card-content>
+      </ion-card>
+   </div>
+ </div>
+</ion-content>
