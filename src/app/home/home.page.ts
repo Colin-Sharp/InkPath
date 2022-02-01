@@ -14,16 +14,17 @@ import { CountryEnum } from '../enums/country.enum';
 export class HomePage extends BaseComponent implements OnInit {
   public name: FormControl = new FormControl('');
   public countrys = CountryEnum;
-  public imagename = 'albert'
+  public imagename = 'isaac'
+  public listOfPredictions: [] = [];
+  
+  public dummyArry: string[] = ['BB', 'BY', 'BE'];
+
   // our world population data
   private ourdata$: Observable<any>
-  public listOfPredictions: [] = []
+
   constructor(private apiService: ApiSerivce) {
     super();
     this.ourdata$ = this.apiService.fetchPredictedNames()
-    this.ourdata$.pipe(takeUntil(this.destroyed$)).subscribe(val => {
-      return val;
-    });
   }
 
   ngOnInit(): void {}
@@ -34,11 +35,12 @@ export class HomePage extends BaseComponent implements OnInit {
     } else {
       return allData.filter(data => {
         return data.name.toLowerCase().indexOf(this.name.value.toLowerCase()) !== -1;
+        // return data.title.toLowerCase().indexOf(this.name.value.toLowerCase()) !== -1;
       })
     }
   }
 
-  public makeImagePath(name) {
+  public makeImagePath(name: string) {
     return '../../assets/images/' + name +'.jpg'
   }
 

@@ -18,12 +18,12 @@
       <ion-card class="name-item  ion-text-center" *ngFor="let data of filterData(allOurData)">
       <img class="image" src={{makeImagePath(data.name)}} alt="">
       <ion-card-title>
-        <h2>{{data.name}}</h2>
+        <h2>{{data.name | titlecase}}</h2>
       </ion-card-title>
       <ion-card-content>
-        <p>most likely: {{getCountry(data.country[0])}}</p>
-        <p>Second: {{getCountry(data.country[1])}}</p>
-        <p>Third: {{getCountry(data.country[2])}}</p>
+        <p>most likely: {{getCountry(data.country[0].country_id)}}</p>
+        <p>Second: {{getCountry(data.country[1].country_id)}}</p>
+        <p>Third: {{getCountry(data.country[2].country_id)}}</p>
       </ion-card-content>
       </ion-card>
    </div>
